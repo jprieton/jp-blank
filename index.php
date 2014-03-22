@@ -1,3 +1,9 @@
-<?php get_header() ?>
-<?php the_post(); the_content() ?>
-	<?php get_footer() ?>
+<?php
+
+get_header();
+
+while (have_posts()) {
+	get_template_part('content');
+}
+
+get_footer();
