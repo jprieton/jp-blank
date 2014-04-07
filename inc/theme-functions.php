@@ -80,4 +80,69 @@ function jpb_dummy() {
 	return;
 }
 
+/**
+ * Store theme messages and alerts
+ * @global type $jpb_messages
+ * @param string $message
+ * @param string $type
+ * @param bool $dismissable
+ */
+function add_message($message, $type = 'info', $dismissable = false) {
+	global $jpb_messages;
+
+	switch ($type) {
+		case 'success':
+			$jpb_messages[] = array(
+							'class' => 'alert-success',
+							'content' => $message,
+							'dismissable' => (bool) $dismissable
+			);
+			break;
+		case 'warning':
+			$jpb_messages[] = array(
+							'class' => 'alert-warning',
+							'content' => $message,
+							'dismissable' => (bool) $dismissable
+			);
+			break;
+		case 'danger':
+			$jpb_messages[] = array(
+							'class' => 'alert-danger',
+							'content' => $message,
+							'dismissable' => (bool) $dismissable
+			);
+			break;
+
+		case 'info':
+		default:
+			$jpb_messages[] = array(
+							'class' => 'alert-info',
+							'content' => $message,
+							'dismissable' => (bool) $dismissable
+			);
+			break;
+	}
+}
+
+/**
+ * Show messages and alerts
+ * @global array $jpb_messages
+ */
+function show_message() {
+	global $jpb_messages;
+	$str_message = '';
+	foreach ($jpb_messages as $item) {
+		if ($item['dismissable']) {
+			$str_message .= sprintf('<div class="alert %s alert-dismissable">', $item['class']);
+			$str_message .= '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+		} else {
+			$str_message .= sprintf('<div class="alert %s">', $item['class']);
+		}
+		$str_message .= $item['content'];
+		$str_message .= '</div>';
+	}
+	echo $str_message;
+	$jpb_messages = array();
+}
+
 
