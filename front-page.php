@@ -1,3 +1,3 @@
 <?php
 
-get_template_part('home');
+get_template_part('index');
