@@ -1,28 +1,61 @@
 <?php
 
+/**
+ * Dumps information about the variable wrapped in &lt;pre&gt; tag and, optionally, terminate the current script.
+ *
+ * @param mixed $var The variable you want to dump.
+ * @param bool $stop If true terminate the current script.
+ * @return void
+ */
+function jpb_debug($var, $stop = false) {
+	echo '<pre>';
+	var_dump($var);
+	echo '</pre>';
+
+	if ((bool) $stop) {
+		exit;
+	}
+}
+
 if (!function_exists('debug')) {
 
 	/**
-	 * Dumps information about a variable wrapped in &lt;pre&gt; tag and, optionally, terminate the current script.
+	 * An alias of jpb_debug().
 	 *
 	 * @param mixed $var The variable you want to dump.
 	 * @param bool $stop If true terminate the current script.
 	 * @return void
 	 */
-	function debug($var, $stop = true) {
-		echo '<pre>';
-		var_dump($var);
-		echo '</pre>';
-		($stop || exit);
+	function debug($var, $stop = false) {
+		jpb_debug($var, $stop);
 	}
 
 }
 
+
+
 /**
- * Returns url stylesheet, local or cdn, based in constant JPB_USE_CDN
- * @param string $style
- * @return type string
+ * Returns url stylesheet, Switch between CDN an local files based in constant JPB_USE_CDN
+ * @param string $local_path
+ * @param string $remote_path (optional)
+ * @return type string If not set $remote_path and the constant JPB_USE_CDN is <i>true</i> returns $local_path
  */
+function jpb_switch_cdn($local_path, $remote_path = '') {
+	if (!empty($remote_path) && (bool) JPB_USE_CDN) {
+		return $remote_path;
+	} else {
+		return $local_path;
+	}
+}
+
+function jpb_featured_image_src($post_id = NULL, $size = NULL) {
+	if (has_post_thumbnail($post_id)) {
+
+	} else {
+		return FALSE;
+	}
+}
+
 function jpb_style_uri($style = '') {
 
 	$style_url = null;
@@ -87,7 +120,7 @@ function jpb_dummy() {
  * @param string $type
  * @param bool $dismissable
  */
-function add_message($message, $type = 'info', $dismissable = false) {
+function jpb_add_message($message, $type = 'info', $dismissable = false) {
 	global $jpb_messages;
 
 	switch ($type) {
@@ -128,7 +161,7 @@ function add_message($message, $type = 'info', $dismissable = false) {
  * Show messages and alerts
  * @global array $jpb_messages
  */
-function show_message() {
+function jpb_show_message() {
 	global $jpb_messages;
 	$str_message = '';
 	foreach ($jpb_messages as $item) {
@@ -145,4 +178,35 @@ function show_message() {
 	$jpb_messages = array();
 }
 
+function jpb_admin_thumbnail_column($size) {
+	if (is_admin()) {
 
+		add_filter('manage_posts_columns', 'posts_columns', 5);
+
+		function posts_columns($defaults) {
+			$defaults['jpb_thumbnail'] = 'Imagen destacada';
+			return $defaults;
+		}
+
+		add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
+
+		function posts_custom_columns($column_name, $id) {
+			if ($column_name === 'jpb_thumbnail') {
+				the_post_thumbnail($size);
+			}
+		}
+
+		add_action('admin_enqueue_scripts', 'admin_post_thumbnail');
+
+		function admin_post_thumbnail() {
+			?>
+			<style type="text/css">
+				.column-jpb_thumbnail { width: 130px }
+				.column-jpb_thumbnail img { display: block; margin: auto; }
+			</style>
+			<?php
+
+		}
+
+	}
+}

@@ -3,12 +3,32 @@
 /**
  * Theme constants
  */
-define('JPB_USE_CDN', true); // Define if scripts/styles use cdn
+define('JPB_USE_CDN', TRUE); // Define if scripts/styles use cdn
 
 /**
  * Functions file
  */
 require get_template_directory() . '/inc/theme-functions.php';
+
+if (!is_admin()) {
+
+	function jpb_register_scripts() {
+		// jQuery 1.11.0
+		$jquery_src = jpb_switch_cdn(get_template_directory_uri() . '/js/jquery.min.js', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js');
+		wp_deregister_script('jquery');
+		wp_register_script('jquery', $jquery_src, FALSE, '1.11.0', FALSE);
+
+		// Modernizr 2.7.1
+		$modernizr_src = jpb_switch_cdn(get_template_directory_uri() . '/js/modernizr.min.js', '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js');
+		wp_register_script('modernizr', $modernizr_src, FALSE, '2.7.1', TRUE);
+
+		// Bootstrap 3.1.1
+		$bootstrap_src = jpb_switch_cdn(get_template_directory_uri() . '/js/bootstrap.min.js', '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js');
+		wp_register_script('bootstrap', $bootstrap_src, array('jquery'), '3.1.1', TRUE);
+	}
+
+	add_action('init', 'jpb_register_scripts');
+}
 
 /**
  * Enqueue scripts
@@ -16,15 +36,14 @@ require get_template_directory() . '/inc/theme-functions.php';
 function jpb_enqueue_scripts() {
 
 	// Modernizr 2.7.1
-	wp_enqueue_script('modernizr', jpb_script_uri('modernizr'), array(), '2.7.1', TRUE);
+	wp_enqueue_script('modernizr');
 
 	// jQuery 1.11.0
-	wp_deregister_script('jquery');
-	wp_register_script('jquery', jpb_script_uri('jquery'), array(), '1.11.0', TRUE);
-	wp_enqueue_script('jquery');
+//	wp_enqueue_script('jquery');
 
 	// Bootstrap 3.1.1
-	wp_enqueue_script('bootstrap', jpb_script_uri('bootstrap'), array('jquery'), '3.1.1', TRUE);
+
+	wp_enqueue_script('bootstrap');
 	wp_enqueue_style('bootstrap', jpb_style_uri('bootstrap'), array(), '3.1.1');
 
 	// Theme styles
@@ -63,12 +82,13 @@ function jpb_theme_features() {
 // Hook into the 'after_setup_theme' action
 add_action('after_setup_theme', 'jpb_theme_features');
 
-function other_function($var1) {
-	debug($var1);
-}
+/*
+  function other_function($var1) {
+  debug($var1);
+  }
 
-add_filter('attachment_link', 'other_function', 1, 2);
-
+  add_filter('attachment_link', 'other_function', 1, 2);
+ */
 
 /* filters */
 include get_template_directory() . '/inc/theme-filters.php';
