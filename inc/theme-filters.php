@@ -14,7 +14,7 @@ function jpb_title_filter($title) {
 	if (empty($title) && ( is_home() || is_front_page() )) {
 		return get_bloginfo('name') . ' &raquo; ' . __('Home', 'jpb');
 	}
-	return get_bloginfo('name') . ' &raquo; ' . $title;
+	return get_bloginfo('name') . $title;
 }
 
 function jpb_post_thumbnail_class_filter($attr) {
