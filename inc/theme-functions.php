@@ -12,9 +12,10 @@ function jpb_debug($var, $stop = false) {
 	var_dump($var);
 	echo '</pre>';
 
-	if ((bool) $stop) {
-		exit;
+	if ($stop) {
+		die();
 	}
+
 }
 
 if (!function_exists('debug')) {
@@ -32,8 +33,6 @@ if (!function_exists('debug')) {
 
 }
 
-
-
 /**
  * Returns url stylesheet, Switch between CDN an local files based in constant JPB_USE_CDN
  * @param string $local_path
@@ -47,6 +46,8 @@ function jpb_switch_cdn($local_path, $remote_path = '') {
 		return $local_path;
 	}
 }
+
+/* ------------------------------------------------------------ */
 
 function jpb_featured_image_src($post_id = NULL, $size = NULL) {
 	if (has_post_thumbnail($post_id)) {

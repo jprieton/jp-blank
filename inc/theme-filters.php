@@ -14,6 +14,8 @@ function jpb_title_filter($title) {
 
 add_filter('wp_title', 'jpb_title_filter');
 
+/* ------------------------------------------------------------ */
+
 function jpb_attribute_output_filter($attr) {
 	$output = array();
 	foreach ($attr as $key => $value) {
