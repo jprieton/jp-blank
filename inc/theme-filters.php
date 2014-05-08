@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Add a filter to customize wp_title() function.
+ * @param string $title
+ * @return string
+ */
+function jpb_title_filter($title) {
+	if (empty($title) && ( is_home() || is_front_page() )) {
+		return get_bloginfo('name') . ' &raquo; ' . __('Home', 'jpb');
+	}
+	return get_bloginfo('name') . $title;
+}
+
+add_filter('wp_title', 'jpb_title_filter');
+
 function jpb_attribute_output_filter($attr) {
 	$output = array();
 	foreach ($attr as $key => $value) {
@@ -9,13 +23,6 @@ function jpb_attribute_output_filter($attr) {
 }
 
 add_filter('jpb_attribute_output', 'jpb_attribute_output_filter');
-
-function jpb_title_filter($title) {
-	if (empty($title) && ( is_home() || is_front_page() )) {
-		return get_bloginfo('name') . ' &raquo; ' . __('Home', 'jpb');
-	}
-	return get_bloginfo('name') . $title;
-}
 
 function jpb_post_thumbnail_class_filter($attr) {
 	$attr['class'] .= ' img-thumbnail img-responsive';

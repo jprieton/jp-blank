@@ -94,11 +94,6 @@ add_action('after_setup_theme', 'jpb_theme_features');
 include get_template_directory() . '/inc/theme-filters.php';
 
 /**
- * Customize WordPress page title
- */
-add_filter('wp_title', 'jpb_title_filter');
-
-/**
  * Add Boostrap classes for images thumbnails
  */
 add_filter('wp_get_attachment_image_attributes', 'jpb_post_thumbnail_class_filter');
