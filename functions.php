@@ -96,37 +96,37 @@ include get_template_directory() . '/inc/theme-filters.php';
 /**
  * Add Boostrap classes for images thumbnails
  */
-add_filter('wp_get_attachment_image_attributes', 'jpb_post_thumbnail_class_filter');
+//add_filter('wp_get_attachment_image_attributes', 'jpb_post_thumbnail_class_filter');
 
 /**
  * Add some image metadata in gallery item
  */
-add_filter('jpb_image_metadata', 'jpb_image_metadata_filter', 10, 2);
+//add_filter('jpb_image_metadata', 'jpb_image_metadata_filter', 10, 2);
 
 /**
  * Add microdata on item gallery
  */
-add_filter('jpb_itemtag_attribute', 'jpb_itemtag_attribute_filter', 10, 2);
+//add_filter('jpb_itemtag_attribute', 'jpb_itemtag_attribute_filter', 10, 2);
 
 /**
  * Add microdata on item gallery
  */
-add_filter('jpb_captiontag', 'jpb_captiontag_filter', 10, 2);
+//add_filter('jpb_captiontag', 'jpb_captiontag_filter', 10, 2);
 
 /**
  * Add an itemprop=thumbnailUrl to image
  */
-add_filter('wp_get_attachment_image_attributes', 'jpb_post_thumbnail_itemprop_filter');
+//add_filter('wp_get_attachment_image_attributes', 'jpb_post_thumbnail_itemprop_filter');
 
 /**
  * Remove default style gallery
  */
-add_filter('use_default_gallery_style', 'jpb_dummy');
+//add_filter('use_default_gallery_style', 'jpb_dummy');
 
 /**
  * Add microdata on gallery
  */
-add_filter('gallery_style', 'jpb_gallery_style');
+//add_filter('gallery_style', 'jpb_gallery_style');
 
 
 include get_template_directory() . '/inc/theme-shortcodes.php';

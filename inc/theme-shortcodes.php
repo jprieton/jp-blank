@@ -247,5 +247,5 @@ function jpb_gallery_shorcode($attr) {
   get_template_part('templates/gallery');
   }
  */
-remove_shortcode('gallery', 'gallery_shortcode');
-add_shortcode('gallery', 'jpb_gallery_shorcode');
+//remove_shortcode('gallery', 'gallery_shortcode');
+//add_shortcode('gallery', 'jpb_gallery_shorcode');
