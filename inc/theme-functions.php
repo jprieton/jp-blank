@@ -119,6 +119,42 @@ function jpb_dummy() {
 	return;
 }
 
+/**
+ * Add a thumbnail column
+ */
+function jpb_admin_thumbnail_column() {
+	if (is_admin()) {
+
+		add_image_size( 'jpb_admin_thumb', 70, 70, true );
+
+		add_filter('manage_posts_columns', 'posts_columns', 5);
+
+		function posts_columns($defaults) {
+			$defaults['jpb_thumbnail'] = 'Imagen destacada';
+			return $defaults;
+		}
+
+		add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
+
+		function posts_custom_columns($column_name, $id) {
+			if ($column_name === 'jpb_thumbnail') {
+				the_post_thumbnail(jpb_admin_thumb);
+			}
+		}
+
+		add_action('admin_enqueue_scripts', 'admin_post_thumbnail');
+
+		function admin_post_thumbnail() {
+			?>
+			<style type="text/css">
+				.column-jpb_thumbnail { width: 130px }
+				.column-jpb_thumbnail img { display: block; margin: auto; }
+			</style>
+			<?php
+		}
+	}
+}
+
 /* ------------------------------------------------------------ */
 
 function jpb_featured_image_src($post_id = NULL, $size = NULL) {
@@ -176,37 +212,4 @@ function jpb_script_uri($style = '') {
 	}
 
 	return $script_url;
-}
-
-function jpb_admin_thumbnail_column($size) {
-	if (is_admin()) {
-
-		add_filter('manage_posts_columns', 'posts_columns', 5);
-
-		function posts_columns($defaults) {
-			$defaults['jpb_thumbnail'] = 'Imagen destacada';
-			return $defaults;
-		}
-
-		add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
-
-		function posts_custom_columns($column_name, $id) {
-			if ($column_name === 'jpb_thumbnail') {
-				the_post_thumbnail($size);
-			}
-		}
-
-		add_action('admin_enqueue_scripts', 'admin_post_thumbnail');
-
-		function admin_post_thumbnail() {
-			?>
-			<style type="text/css">
-				.column-jpb_thumbnail { width: 130px }
-				.column-jpb_thumbnail img { display: block; margin: auto; }
-			</style>
-			<?php
-
-		}
-
-	}
 }
