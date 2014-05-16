@@ -7,11 +7,11 @@
  */
 function jpb_change_user_pass() {
 
-	$old_pass = filter_input(INPUT_POST, 'old_pass');
-	$new_pass = filter_input(INPUT_POST, 'new_pass');
-	$new_pass_verify = filter_input(INPUT_POST, 'new_pass_verify');
+	$old_password = filter_input(INPUT_POST, 'old_password');
+	$new_password = filter_input(INPUT_POST, 'new_password');
+	$confirm_pasword = filter_input(INPUT_POST, 'confirm_password');
 
-	if (empty($old_pass) or empty($new_pass) or $new_pass != $new_pass_verify or !is_user_logged_in()) {
+	if (empty($old_password) or empty($new_password) or ($new_password != $confirm_pasword) or !is_user_logged_in()) {
 		return FALSE;
 	}
 
@@ -22,9 +22,10 @@ function jpb_change_user_pass() {
 		return FALSE;
 	}
 
-	$creds = array();
-	$creds['old_pass'] = $current_user->old_pass;
-	$creds['user_password'] = $old_pass;
+	$creds = array(
+					'user_login' => $user_login,
+					'user_password' => $old_password
+	);
 	$user = wp_signon($creds, false);
 
 	if (is_wp_error($user)) {
@@ -32,7 +33,7 @@ function jpb_change_user_pass() {
 		return FALSE;
 	} else {
 		// Update pass
-		wp_update_user(array('ID' => $current_user->ID, 'user_pass' => $new_pass));
+		wp_update_user(array('ID' => $current_user->ID, 'user_pass' => $new_password));
 		return TRUE;
 	}
 }
@@ -69,10 +70,11 @@ function jpb_login() {
 	$remember = (bool) filter_input(INPUT_POST, 'remember');
 
 	if (!empty($user_login) && !empty($user_password)) {
-		$creds = array();
-		$creds['user_login'] = $user_login;
-		$creds['user_password'] = $user_password;
-		$creds['remember'] = $remember;
+		$creds = array(
+						'user_login' => $user_login,
+						'user_password' => $user_password,
+						'remember' => $remember
+		);
 		$user = wp_signon($creds, false);
 
 		if (is_wp_error($user)) {

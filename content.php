@@ -11,7 +11,15 @@
 	</div><!-- .post-content -->
 
 	<footer>
+		<?php
+		// check if is applicable http://schema.org/genre
+		the_category();
+		?>
 
+		<?php
+		// check if is applicable http://schema.org/keywords
+		the_tags();
+		?>
 	</footer>
 
 	<meta itemprop="datePublished" content="<?php echo get_the_date('i') ?>">
