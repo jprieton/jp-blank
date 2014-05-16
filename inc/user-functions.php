@@ -64,14 +64,14 @@ if (is_user_logged_in()) {
  * @return boolean
  */
 function jpb_login() {
-	$old_pass = filter_input(INPUT_POST, 'old_pass');
+	$user_login = filter_input(INPUT_POST, 'user_login');
 	$user_password = filter_input(INPUT_POST, 'user_password');
 	$remember = (bool) filter_input(INPUT_POST, 'remember');
 
-	if (!empty($old_pass) && !empty($user_password)) {
+	if (!empty($user_login) && !empty($user_password)) {
 		$creds = array();
-		$creds['old_pass'] = $old_pass;
-		$creds['old_pass'] = $user_password;
+		$creds['user_login'] = $user_login;
+		$creds['user_password'] = $user_password;
 		$creds['remember'] = $remember;
 		$user = wp_signon($creds, false);
 
@@ -86,6 +86,7 @@ function jpb_login() {
 }
 
 // run it before the headers and cookies are sent
-if (is_user_logged_in()) {
+if (!is_user_logged_in()) {
 	add_action('after_setup_theme', 'jpb_login');
 }
+
