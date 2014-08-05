@@ -7,7 +7,8 @@
  * @param bool $stop If true terminate the current script.
  * @return void
  */
-function jpb_debug($var, $stop = false) {
+function jpb_debug($var, $stop = false)
+{
 	echo '<pre>';
 	var_dump($var);
 	echo '</pre>';
@@ -26,7 +27,8 @@ if (!function_exists('debug')) {
 	 * @param bool $stop If true terminate the current script.
 	 * @return void
 	 */
-	function debug($var, $stop = false) {
+	function debug($var, $stop = false)
+	{
 		jpb_debug($var, $stop);
 	}
 
@@ -38,7 +40,8 @@ if (!function_exists('debug')) {
  * @param string $remote_path (optional)
  * @return type string If not set $remote_path and the constant JPB_USE_CDN is <i>true</i> returns $local_path
  */
-function jpb_switch_cdn($local_path, $remote_path = '') {
+function jpb_switch_cdn($local_path, $remote_path = '')
+{
 	if (!empty($remote_path) && (bool) JPB_USE_CDN) {
 		return $remote_path;
 	} else {
@@ -53,38 +56,39 @@ function jpb_switch_cdn($local_path, $remote_path = '') {
  * @param string $type
  * @param bool $dismissable
  */
-function jpb_add_message($message, $type = 'info', $dismissable = false) {
+function jpb_add_message($message, $type = 'info', $dismissable = false)
+{
 	global $jpb_messages;
 
 	switch ($type) {
 		case 'success':
 			$jpb_messages[] = array(
-							'class' => 'alert-success',
-							'content' => $message,
-							'dismissable' => (bool) $dismissable
+					'class' => 'alert-success',
+					'content' => $message,
+					'dismissable' => (bool) $dismissable
 			);
 			break;
 		case 'warning':
 			$jpb_messages[] = array(
-							'class' => 'alert-warning',
-							'content' => $message,
-							'dismissable' => (bool) $dismissable
+					'class' => 'alert-warning',
+					'content' => $message,
+					'dismissable' => (bool) $dismissable
 			);
 			break;
 		case 'danger':
 			$jpb_messages[] = array(
-							'class' => 'alert-danger',
-							'content' => $message,
-							'dismissable' => (bool) $dismissable
+					'class' => 'alert-danger',
+					'content' => $message,
+					'dismissable' => (bool) $dismissable
 			);
 			break;
 
 		case 'info':
 		default:
 			$jpb_messages[] = array(
-							'class' => 'alert-info',
-							'content' => $message,
-							'dismissable' => (bool) $dismissable
+					'class' => 'alert-info',
+					'content' => $message,
+					'dismissable' => (bool) $dismissable
 			);
 			break;
 	}
@@ -94,7 +98,8 @@ function jpb_add_message($message, $type = 'info', $dismissable = false) {
  * Show messages and alerts
  * @global array $jpb_messages
  */
-function jpb_show_message() {
+function jpb_show_message()
+{
 	global $jpb_messages;
 	$str_message = '';
 	foreach ($jpb_messages as $item) {
@@ -115,28 +120,32 @@ function jpb_show_message() {
  * Dummy function
  * @return null
  */
-function jpb_dummy() {
+function jpb_dummy()
+{
 	return;
 }
 
 /**
  * Add a thumbnail column
  */
-function jpb_admin_thumbnail_column() {
+function jpb_admin_thumbnail_column()
+{
 	if (is_admin()) {
 
-		add_image_size( 'jpb_admin_thumb', 70, 70, true );
+		add_image_size('jpb_admin_thumb', 70, 70, true);
 
 		add_filter('manage_posts_columns', 'posts_columns', 5);
 
-		function posts_columns($defaults) {
+		function posts_columns($defaults)
+		{
 			$defaults['jpb_thumbnail'] = 'Imagen destacada';
 			return $defaults;
 		}
 
 		add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
 
-		function posts_custom_columns($column_name, $id) {
+		function posts_custom_columns($column_name, $id)
+		{
 			if ($column_name === 'jpb_thumbnail') {
 				the_post_thumbnail(jpb_admin_thumb);
 			}
@@ -144,20 +153,38 @@ function jpb_admin_thumbnail_column() {
 
 		add_action('admin_enqueue_scripts', 'admin_post_thumbnail');
 
-		function admin_post_thumbnail() {
+		function admin_post_thumbnail()
+		{
 			?>
 			<style type="text/css">
 				.column-jpb_thumbnail { width: 130px }
 				.column-jpb_thumbnail img { display: block; margin: auto; }
 			</style>
 			<?php
+
 		}
+
 	}
+}
+
+/**
+ * Shows the canonical meta tag
+ */
+function jpb_canonical_meta()
+{
+	if (is_home()) {
+		$canonical_url = home_url();
+	} elseif (is_page() or is_singular()) {
+		$canonical_url = get_the_permalink();
+	}
+
+	echo (!empty($canonical_url)) ? '<link rel="canonical" href="' . $canonical_url . '" />' : '';
 }
 
 /* ------------------------------------------------------------ */
 
-function jpb_featured_image_src($post_id = NULL, $size = NULL) {
+function jpb_featured_image_src($post_id = NULL, $size = NULL)
+{
 	if (has_post_thumbnail($post_id)) {
 
 	} else {
@@ -165,14 +192,15 @@ function jpb_featured_image_src($post_id = NULL, $size = NULL) {
 	}
 }
 
-function jpb_style_uri($style = '') {
+function jpb_style_uri($style = '')
+{
 
 	$style_url = null;
 	switch ($style) {
 		case 'bootstrap':
 			$style_url = (JPB_USE_CDN) ?
-					'//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' :
-					get_template_directory_uri() . '/css/bootstrap.min.css';
+							'//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' :
+							get_template_directory_uri() . '/css/bootstrap.min.css';
 			break;
 
 		default:
@@ -187,24 +215,25 @@ function jpb_style_uri($style = '') {
  * @param string $style
  * @return type string
  */
-function jpb_script_uri($style = '') {
+function jpb_script_uri($style = '')
+{
 
 	$script_url = null;
 	switch ($style) {
 		case 'bootstrap':
 			$script_url = (JPB_USE_CDN) ?
-					'//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js' :
-					get_template_directory_uri() . '/js/bootstrap.min.js';
+							'//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js' :
+							get_template_directory_uri() . '/js/bootstrap.min.js';
 			break;
 		case 'jquery':
 			$script_url = (JPB_USE_CDN) ?
-					'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' :
-					get_template_directory_uri() . '/js/jquery.min.js';
+							'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' :
+							get_template_directory_uri() . '/js/jquery.min.js';
 			break;
 		case 'modernizr':
 			$script_url = (JPB_USE_CDN) ?
-					'//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js' :
-					get_template_directory_uri() . '/js/modernizr.min.js';
+							'//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js' :
+							get_template_directory_uri() . '/js/modernizr.min.js';
 			break;
 
 		default:

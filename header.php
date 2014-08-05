@@ -1,20 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html <?php language_attributes() ?>>
 	<head>
-    <meta charset="<?php bloginfo('charset') ?>">
-    <title><?php wp_title() ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php bloginfo('description') ?>">
-		<link rel="profile" href="http://gmpg.org/xfn/11">
-		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <link rel="shortcut icon" href="<?php bloginfo('template_url') ?>/favicon.ico">
+    <meta charset="<?php bloginfo('charset') ?>" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="<?php bloginfo('description') ?>" />
 
-		<!-- jQuery 1.11.0 -->
-		<script src="<?php jpb_switch_cdn(get_template_directory_uri() . '/js/jquery.min.js', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js') ?>"></script>
-		<!-- Modernizr 2.7.1 -->
-		<script src="<?php jpb_switch_cdn(get_template_directory_uri() . '/js/modernizr.min.js', '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js') ?>"></script>
+    <title><?php wp_title() ?></title>
+
+		<link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri() ?>/favicon.ico" />
+		<link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri() ?>/apple-touch-icon.png" />
+
+		<?php jpb_canonical_meta() ?>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+		<!-- Animate.css -->
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+		<!-- Main Theme Styles -->
+		<link rel="stylesheet" href="<?php echo get_stylesheet_uri() ?>" />
 
 		<?php wp_head() ?>
+
   </head>
 
   <body <?php body_class() ?>>
