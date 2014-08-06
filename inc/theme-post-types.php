@@ -56,6 +56,12 @@ function jpb_gallery_post_type() {
 		'not_found'           => 'No se encontraron galer&iacuteas.',
 		'not_found_in_trash'  => 'Ninguna galer&iacute;a encontrada en la papelera.',
 	);
+	$rewrite = array(
+		'slug'                => 'gallery',
+		'with_front'          => true,
+		'pages'               => true,
+		'feeds'               => true,
+	);
 	$args = array(
 		'labels'              => $labels,
 		'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', ),
@@ -71,7 +77,8 @@ function jpb_gallery_post_type() {
 		'has_archive'         => true,
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
-		'capability_type'     => 'page',
+		'rewrite'             => $rewrite,
+		'capability_type'     => 'post',
 	);
 	register_post_type( 'gallery', $args );
 
