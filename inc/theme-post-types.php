@@ -4,17 +4,17 @@
 function jpb_banner_post_type() {
 
 	$labels = array(
-		'name'                => 'Banners',
-		'singular_name'       => 'Banner',
-		'menu_name'           => 'Banners',
-		'all_items'           => 'Todos los banners',
-		'view_item'           => 'Ver banner',
-		'add_new_item'        => 'A&ntilde;adir nuevo',
-		'add_new'             => 'A&ntilde;adir nuevo',
-		'edit_item'           => 'Editar banner',
-		'search_items'        => 'Buscar banners',
-		'not_found'           => 'No se encontraron banners.',
-		'not_found_in_trash'  => 'Ning&uacute;n banner encontrado en la papelera.',
+		'name'                => __('Banners','jpb'),
+		'singular_name'       => __('Banner','jpb'),
+		'menu_name'           => __('Banners','jpb'),
+		'all_items'           => __('All Banners','jpb'),
+		'view_item'           => __('View Banner','jpb'),
+		'add_new_item'        => __('Add New', 'jpb'),
+		'add_new'             => __('Add New', 'jpb'),
+		'edit_item'           => __('Edit Banner','jpb'),
+		'search_items'        => __('Search Banner','jpb'),
+		'not_found'           => __( 'No banner found.', 'jpb' ),
+		'not_found_in_trash'  => __( 'No banner found in Trash.', 'jpb' ),
 	);
 	$args = array(
 		'labels'              => $labels,
@@ -44,20 +44,20 @@ function jpb_banner_post_type() {
 function jpb_gallery_post_type() {
 
 	$labels = array(
-		'name'                => 'Galer&iacute;as',
-		'singular_name'       => 'Galer&iacute;a',
-		'menu_name'           => 'Galer&iacute;as',
-		'all_items'           => 'Todas las galer&iacute;as',
-		'view_item'           => 'Ver galer&iacute;a',
-		'add_new_item'        => 'A&ntilde;adir nueva',
-		'add_new'             => 'A&ntilde;adir nueva',
-		'edit_item'           => 'Editar galer&iacute;a',
-		'search_items'        => 'Buscar galer&iacute;as',
-		'not_found'           => 'No se encontraron galer&iacuteas.',
-		'not_found_in_trash'  => 'Ninguna galer&iacute;a encontrada en la papelera.',
+		'name'                => __('Galleries', 'jpb'),
+		'singular_name'       => __('Gallery', 'jpb'),
+		'menu_name'           => __('Galleries', 'jpb'),
+		'all_items'           => __('All Galleries', 'jpb'),
+		'view_item'           => __('View Gallery', 'jpb'),
+		'add_new_item'        => _x('Add New', 'female', 'jpb'),
+		'add_new'             => _x('Add New', 'female', 'jpb'),
+		'edit_item'           => __('Edit Gallery', 'jpb'),
+		'search_items'        => __('Search Gallery', 'jpb'),
+		'not_found'           => __( 'No gallery found.', 'jpb' ),
+		'not_found_in_trash'  => __( 'No gallery found in Trash.', 'jpb' ),
 	);
 	$rewrite = array(
-		'slug'                => 'gallery',
+		'slug'                => _x('gallery', 'url', 'jpb'),
 		'with_front'          => true,
 		'pages'               => true,
 		'feeds'               => true,
