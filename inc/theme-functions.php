@@ -157,8 +157,8 @@ function jpb_admin_thumbnail_column()
 		{
 			?>
 			<style type="text/css">
-				.column-jpb_thumbnail { width: 130px }
-				.column-jpb_thumbnail img { display: block; margin: auto; }
+					.column-jpb_thumbnail { width: 130px }
+					.column-jpb_thumbnail img { display: block; margin: auto; }
 			</style>
 			<?php
 
@@ -179,6 +179,57 @@ function jpb_canonical_meta()
 	}
 
 	echo (!empty($canonical_url)) ? '<link rel="canonical" href="' . $canonical_url . '" />' : '';
+}
+
+/**
+ * Returns an image tag with default image
+ * @global array $_wp_additional_image_sizes
+ * @param string $size
+ * @param array $attr
+ * @return string
+ */
+function jpb_get_default_image($size = 'thumbnail', $attr = array())
+{
+	global $_wp_additional_image_sizes;
+	if (in_array($size, array('thumbnail', 'medium', 'large'))) {
+		$w = get_option($_size . '_size_w');
+		$h = get_option($_size . '_size_h');
+	} else {
+		if (!empty($_wp_additional_image_sizes[$size])) {
+			$w = $_wp_additional_image_sizes[$size]['width'];
+			$h = $_wp_additional_image_sizes[$size]['height'];
+		} else {
+			$w = $h = 0;
+		}
+	}
+
+	if (empty($attr['src'])) {
+		$src = apply_filters('jpb_default_image', get_stylesheet_directory_uri() . '/images/no-image.png');
+		$src .= (($w + $h) > 0 && $timthumb_htaccess) ? "?w={$w}&h={$h}" : '';
+		$attr['src'] = esc_attr($src);
+	}
+
+	if (empty($attr['alt'])) {
+		$attr['alt'] = 'Sin imagen';
+	}
+
+	if (empty($attr['width']) && $w > 0) {
+		$attr['width'] = $w;
+	}
+
+	if (empty($attr['height']) && $h > 0) {
+		$attr['height'] = $h;
+	}
+
+	$img = '<img';
+
+	foreach ($attr as $key => $value) {
+		$img .= ' ' . esc_attr($key) . '="' . esc_attr($value) . '"';
+	}
+
+	$img .= '>';
+
+	return $img;
 }
 
 /* ------------------------------------------------------------ */
