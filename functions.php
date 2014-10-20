@@ -1,5 +1,51 @@
 <?php
 
+add_action('wp_enqueue_scripts', 'theme_scripts');
+
+function theme_scripts()
+{
+	wp_register_style('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', array(), '3.2.0');
+	wp_enqueue_style('bootstrap');
+
+	wp_register_style('bootstrap-theme', '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css', array('bootstrap'), '3.2.0');
+	wp_enqueue_style('bootstrap-theme');
+
+	wp_register_style('animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css', array('bootstrap'), '3.1.0');
+	wp_enqueue_style('animate');
+
+	wp_register_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', array('bootstrap'), '4.1.0');
+	wp_enqueue_style('font-awesome');
+
+	wp_enqueue_script('jquery-form');
+
+	wp_register_script('bootstrap', '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', array('jquery'), '3.2.0', true);
+	wp_enqueue_script('bootstrap');
+}
+
+if (is_admin()) {
+
+	add_action('admin_notices', 'jp_blank_admin_messages');
+
+	//JP_Theme_Tools
+	function jp_blank_admin_messages()
+	{
+		$plugin_messages = array();
+
+		if (!is_plugin_active('jp-theme-tools/jp-theme-tools.php')) {
+			$plugin_messages[] = 'Este tema necesita el plugin JP Theme Tools, <a href="https://github.com/jprieton/jp-theme-tools/archive/master.zip">descargalo aquí</a>.';
+		}
+
+		if (count($plugin_messages) > 0) {
+			echo '<div id="message" class="error">';
+			foreach ($plugin_messages as $message) {
+				echo '<p><strong>' . $message . '</strong></p>';
+			}
+			echo '</div>';
+		}
+	}
+
+}
+
 /**
  * Theme constants
  */
@@ -14,7 +60,8 @@ require get_template_directory() . '/inc/theme-functions.php';
  * Theme features
  */
 // Register Theme Features
-function jpb_theme_features() {
+function jpb_theme_features()
+{
 
 	// Add theme support for Translation
 	load_theme_textdomain('jpb', get_template_directory() . '/languages');
