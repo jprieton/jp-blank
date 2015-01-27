@@ -6,16 +6,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="<?php bloginfo('description') ?>" />
 
-		<title><?php wp_title() ?></title>
-
 		<link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri() ?>/favicon.ico" />
 		<link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri() ?>/apple-touch-icon.png" />
 
 		<?php wp_head() ?>
 		
-		<!-- Main Theme Styles -->
-		<link rel="stylesheet" href="<?php echo get_stylesheet_uri() ?>" />
-
 		<script>
       var admin_url = '<?php echo admin_url('admin-ajax.php') ?>';
 		</script>
