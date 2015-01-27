@@ -26,6 +26,13 @@ add_action('wp_enqueue_scripts', function () {
 	// Theme
 	wp_register_style('theme', get_stylesheet_uri(), array('animate'), '1.0');
 	wp_enqueue_style('theme');
+
+	// Add defer atribute
+	do_action('defer_script', array('bootstrap', 'jquery-form'));
+
+	// Add async atribute
+	do_action('async_script', array('bootstrap'));
+
 });
 
 // Add all supports
