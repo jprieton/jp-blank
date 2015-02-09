@@ -16,10 +16,14 @@ add_action('wp_enqueue_scripts', function () {
 	wp_register_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', array('bootstrap'), '4.3.0');
 	wp_enqueue_style('font-awesome');
 
-	// Animate.css
+	// animate.css
 	wp_register_style('animate', '//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css', array('bootstrap'), '3.2.0');
 	wp_enqueue_style('animate');
 
+	// hover.css
+	wp_register_style('hover', get_stylesheet_directory_uri().'/css/hover-min.css', array('bootstrap'), '2.0.1');
+	wp_enqueue_style('hover');
+	
 	// jQuery Form
 	wp_enqueue_script('jquery-form');
 
