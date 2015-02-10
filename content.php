@@ -3,7 +3,7 @@
 
 	<header>
 		<h1 itemprop="name"><?php the_title() ?></h1>
-		<div class="post-date" itemprop="datePublished" content="<?php echo get_the_date('i') ?>"><?php _e('Published on', 'jpb'); ?> <?php echo get_the_date() ?></div>
+		<div class="post-date" itemprop="datePublished" content="<?php echo get_the_date('c') ?>"><?php _e('Published on', 'jpb'); ?> <?php echo get_the_date() ?></div>
 		<?php the_post_thumbnail() ?>
 	</header>
 
