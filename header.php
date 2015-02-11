@@ -10,12 +10,6 @@
 		<link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri() ?>/apple-touch-icon.png" />
 
 		<?php wp_head() ?>
-		
-		<script>
-      var admin_url = '<?php echo admin_url('admin-ajax.php') ?>';
-		</script>
-
-		<?php echo get_option('google-analytics', '') ?>
 
 	</head>
 
