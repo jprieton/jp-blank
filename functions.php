@@ -23,7 +23,7 @@ add_action('wp_enqueue_scripts', function () {
 	// hover.css
 	wp_register_style('hover', get_stylesheet_directory_uri().'/css/hover-min.css', array('bootstrap'), '2.0.1');
 	wp_enqueue_style('hover');
-	
+
 	// jQuery Form
 	wp_enqueue_script('jquery-form');
 
@@ -59,7 +59,7 @@ add_action('after_setup_theme', function () {
 });
 
 // Load filters
-require_once get_template_directory() . '/includes/filters.php';
+//require_once get_template_directory() . '/includes/filters.php';
 
 
 if (is_admin())
